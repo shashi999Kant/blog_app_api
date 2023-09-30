@@ -14,9 +14,9 @@ public class CommentDto {
 	private String content;
 
 	
-	/*
-	 * private UserDto user;
-	 * 
+	
+	 private UserDto user;
+	 /* 
 	 * private PostDto post;
 	 */
 }

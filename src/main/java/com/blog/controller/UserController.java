@@ -24,47 +24,43 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
+	// post - createUser
+
 	/*
-	 * //post - createUser
-	 * 
 	 * @PostMapping("/") public ResponseEntity<UserDto>
 	 * createUser(@Valid @RequestBody UserDto userDto) { UserDto createUserDto =
 	 * this.userService.createUser(userDto);
 	 * 
-	 * return new ResponseEntity<>(createUserDto , HttpStatus.CREATED); }
+	 * return new ResponseEntity<>(createUserDto, HttpStatus.CREATED); }
 	 */
-	
-	//PUT - update user
+
+	// PUT - update user
 	@PutMapping("/{userId}")
-	public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto,@PathVariable Integer userId)
-	{
+	public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Integer userId) {
 		UserDto updateUser = this.userService.updateUser(userDto, userId);
-		return  ResponseEntity.ok(updateUser);
+		return ResponseEntity.ok(updateUser);
 	}
-	
-	//DELETE - delete user
+
+	// DELETE - delete user
 	@DeleteMapping("/{userId}")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId)
-	{
-		this.userService.deleteUser(userId);	
-		return new ResponseEntity<ApiResponse>(new ApiResponse("user deleted successfully" , false), HttpStatus.OK);
+	public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId) {
+		this.userService.deleteUser(userId);
+		return new ResponseEntity<ApiResponse>(new ApiResponse("user deleted successfully", false), HttpStatus.OK);
 	}
-	
-	//GET - user get
+
+	// GET - user get
 	@GetMapping("/")
-	public ResponseEntity<List<UserDto>> getAllUser()
-	{
+	public ResponseEntity<List<UserDto>> getAllUser() {
 		return ResponseEntity.ok(this.userService.getAllUser());
 	}
-	
+
 	@GetMapping("/{userId}")
-	public ResponseEntity<UserDto> getSingleUser(@PathVariable("userId") Integer uId)
-	{
+	public ResponseEntity<UserDto> getSingleUser(@PathVariable("userId") Integer uId) {
 		return ResponseEntity.ok(this.userService.getUserById(uId));
 	}
 

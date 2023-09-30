@@ -12,7 +12,7 @@ import lombok.Setter;
 public class CategoryDto {
 	
 	
-	private Integer catgoryId;
+	private Integer categoryId;
 	
 	@NotBlank
 	@Size(min = 4,message = "min size of category must be 4")

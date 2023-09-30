@@ -32,7 +32,7 @@ public class UserInfoService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Optional<User> userDetail = repository.findByName(username);
+		Optional<User> userDetail = repository.findByEmail(username);
 
 		// Converting userDetail to UserDetails
 		return userDetail.map(UserInfoDetails::new)
@@ -41,6 +41,9 @@ public class UserInfoService implements UserDetailsService {
 
 	public String addUser(UserDto userInfo) {
 		userInfo.setPassword(encoder.encode(userInfo.getPassword()));
+		if(userInfo.getRole()==null) {
+			userInfo.setRole("ROLE_USER");
+		}
 		repository.save(mapper.map(userInfo, User.class));
 		return "User Added Successfully";
 	}

@@ -28,6 +28,9 @@ public class UserServiceImpl implements UserService{
 		
 		User  user=this.dtoToUser(userDTO);
 		User saveUser = this.userRepo.save(user);
+		if(userDTO.getRole()==null) {
+			userDTO.setRole("ROLE_USER");
+		}
 		return this.userToDto(saveUser);
 		
 	}
