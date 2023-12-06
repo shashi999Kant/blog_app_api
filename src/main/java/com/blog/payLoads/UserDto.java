@@ -39,6 +39,9 @@ public class UserDto {
 	
 	private String role;	
 	
+	/*
+	 * private String imageName;
+	 */
 	@JsonIgnore
 	public String getPassword() {
 		return this.password;

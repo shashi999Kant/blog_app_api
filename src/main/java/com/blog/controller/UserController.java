@@ -9,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +26,11 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	/*
+	 * @Autowired private FileService fileService;
+	 * 
+	 * @Value("${project.image}") private String path;
+	 */
 
 	// post - createUser
 
@@ -53,6 +57,21 @@ public class UserController {
 		return new ResponseEntity<ApiResponse>(new ApiResponse("user deleted successfully", false), HttpStatus.OK);
 	}
 
+	
+	/*
+	 * @PostMapping("/image/upload/{userId}") public ResponseEntity<UserDto>
+	 * uploadPostImage(
+	 * 
+	 * @RequestParam("image") MultipartFile image,
+	 * 
+	 * @PathVariable Integer userId ) throws IOException { UserDto userDto =
+	 * this.userService.getUserById(userId); String fileName =
+	 * this.fileService.upoloadImage(path, image); userDto.setImageName(fileName);
+	 * UserDto updateUser = this.userService.updateUser(userDto, userId); return new
+	 * ResponseEntity<UserDto>(updateUser, HttpStatus.OK);
+	 * 
+	 * }
+	 */
 	// GET - user get
 	@GetMapping("/")
 	public ResponseEntity<List<UserDto>> getAllUser() {

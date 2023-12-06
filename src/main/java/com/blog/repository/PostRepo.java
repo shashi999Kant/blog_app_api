@@ -2,6 +2,8 @@ package com.blog.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.blog.entities.Category;
@@ -18,6 +20,7 @@ public interface PostRepo extends JpaRepository<Post, Integer>{
 //	List<Post> findByTitleContaining(@Param("key") String title);	
 	
 	
-	List<Post> findByTitleContaining(String title);	
+//	List<Post> findByTitleContaining(String title);	
 
+	Page<Post> findByTitleContaining(String keywords, Pageable pageable);
 }

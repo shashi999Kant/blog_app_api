@@ -33,7 +33,7 @@ import com.blog.service.UserInfoService;
 public class SecurityConfig {
 
 	public static final String[] PUBLIC_URLS = { "/api/auth/welcome", "/api/auth/addNewUser", "/api/auth/generateToken",
-			"/v3/api-docs/**", "/v2/api-docs/**","/swagger-ui/**", "/swagger-resources/**", "/webjars/**" };
+			"/v3/api-docs/**", "/v2/api-docs/**","/swagger-ui/**", "/swagger-resources/**", "/webjars/**","/" };
 
 	@Autowired
 	private JwtAuthFilter authFilter;

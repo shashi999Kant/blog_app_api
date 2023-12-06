@@ -25,7 +25,8 @@ public class FileServiceImpl implements FileService {
 
 		// random name generate file
 		String randomID = UUID.randomUUID().toString();
-		String fileName = randomID.concat(name.substring(name.lastIndexOf(".")));
+//		String fileName = randomID.concat(name.substring(name.lastIndexOf(".")));
+		 String fileName = randomID.concat(name.substring(name.lastIndexOf(".")));
 		// full path
 		String filePath = path + File.separator + fileName;
 

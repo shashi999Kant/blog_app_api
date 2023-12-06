@@ -111,10 +111,15 @@ public class PostController {
 	}
 	
 	@GetMapping("/posts/search/{keywords}")
-	public ResponseEntity<List<PostDto>> searchPostByTitle(@PathVariable("keywords") String keyword)
+	public ResponseEntity<PostResponse> searchPostByTitle(@PathVariable("keywords") String keyword,
+			@RequestParam(value = "pageNo" , defaultValue = AppConstants.PAGE_NUMBER , required = false) Integer pageNo,
+			@RequestParam(value = "pageSize" , defaultValue = AppConstants.PAGE_SIZE , required = false) Integer pageSize,
+			@RequestParam(value = "sortBy" , defaultValue = AppConstants.SORT_BY , required = false) String sortBy,
+			@RequestParam(value = "sortDir" , defaultValue = AppConstants.SORT_DIR , required = false) String sortDir
+			)
 	{
-		List<PostDto> result = this.postService.searchPost(keyword);
-		return new ResponseEntity<List<PostDto>>(result , HttpStatus.OK);
+		PostResponse searchPost = this.postService.searchPost(keyword, pageNo ,  pageSize , sortBy, sortDir);
+		return new ResponseEntity<PostResponse>(searchPost , HttpStatus.OK);
 	}
 	
 	
@@ -132,6 +137,8 @@ public class PostController {
 		return new ResponseEntity<PostDto>(updatePost, HttpStatus.OK);
 		
 	}
+	
+	
 	
 	//method to serve file
 	@GetMapping(value = "/posts/image/{imageName}" , produces = MediaType.IMAGE_JPEG_VALUE)
