@@ -41,15 +41,4 @@ pipeline {
 
     }
 
-    post {
-        success {
-            // Actions to perform on success, e.g., notifications
-        }
-        failure {
-            // Actions to perform on failure, e.g., notifications or rollback
-        }
-        always {
-            // Always clean up, e.g., stop services or perform cleanup tasks
-        }
-    }
 }
