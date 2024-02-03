@@ -1,44 +1,31 @@
 pipeline {
-    agent any
-    
-    environment {
-        // Define environment variables
-        MAVEN_HOME = tool 'Maven'
-        JAVA_HOME = tool 'Java'
+    agent any 
+    tools {
+        maven 'Maven'
     }
-
     stages {
-        stage('Checkout') {
+        stage('Build Maven') {
             steps {
-                // Checkout source code from your Git repository
-                checkout scm
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/shashi999Kant/blog_app_api']])
+                bat 'mvn clean install'
             }
         }
-
-        stage('Build') {
+        stage('Build docker image') {
             steps {
-                // Build the Spring Boot application using Maven
-                sh "${MAVEN_HOME}/bin/mvn clean install"
+                script {
+                    bat 'docker build -t shashi9721/blogging-app-backend .'
+                }
             }
         }
-
-        stage('Test') {
+        stage('Push docker image to docker hub') {
             steps {
-                // Run tests if needed
-                sh "${MAVEN_HOME}/bin/mvn test"
+                script {
+                    withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+                        bat "docker login -u shashi9721 -p ${dockerhubpwd}"
+                        bat 'docker push shashi9721/blogging-app-backend'
+                    }
+                }
             }
         }
-
-        stage('Deploy') {
-            steps {
-                // Deploy the application (e.g., package as JAR or WAR)
-                // You may need to customize this based on your project structure
-                sh "${MAVEN_HOME}/bin/mvn package"
-            }
-        }
-
-      
-
     }
-
 }
